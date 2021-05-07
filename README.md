@@ -25,8 +25,8 @@ Navigating through the code you will find more entertaining ways to roll a dice.
 ## TODO list
 
 * Complete documentation
-* Make a Fudge dice possible
-* Implement more statistically real dices
-* Check if I copied a regular expression from somewhere or I created my own before upload it.
+* ~~Make a Fudge dice possible~~
+* ~~Implement more statistically real dices~~
+* Check if I copied a regular expression from somewhere, or I created my own before upload it.
 
 

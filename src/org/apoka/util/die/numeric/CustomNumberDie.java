@@ -2,7 +2,6 @@ package org.apoka.util.die.numeric;
 
 import org.apoka.util.die.ThrowableObject;
 
-import java.util.List;
 import java.util.Random;
 
 /**
