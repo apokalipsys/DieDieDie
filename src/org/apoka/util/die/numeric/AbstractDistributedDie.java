@@ -4,33 +4,45 @@ import java.util.concurrent.ThreadLocalRandom;
 
 /**
  * This is a template for a "real" dice.
- * That means this is a simulation based on a study of certain dice.
+ * The behavior of this dice is defined by an array of probabilities.
  */
 public abstract class AbstractDistributedDie extends Die {
+    double[] freq;
+    double[] prefix;
 
-    private double mean;
-    private double std;
+    public AbstractDistributedDie(double[] probabilities) {
+        super(probabilities.length);
 
-    /**
-     * Constructor for a die with a number of sides, with a standard deviation and a mean.
-     * @param sides number of sides of this die
-     * @param std standard deviation for this die
-     * @param mean the mean of values returned by this die
-     */
-    public AbstractDistributedDie(int sides, double std, double mean) {
-        super(sides);
-        this.std = std;
-        this.mean = mean;
+        freq = probabilities;
+
+        fillPrefix();
     }
 
-    @Override
+    private void fillPrefix() {
+        prefix = new double[freq.length];
+        prefix[0] = freq[0];
+
+        for (int i = 1; i < freq.length; i++) {
+            prefix[i] = prefix[i-1] + freq[i];
+        }
+    }
+
     public Integer roll() {
-        int aGaussian;
+        int n = freq.length;
+        double rand = ThreadLocalRandom.current().nextDouble(0.0, prefix[n-1]);
 
-        do {
-            aGaussian = (int) (ThreadLocalRandom.current().nextGaussian() * std + mean);
-        } while (minimum > aGaussian || aGaussian > sides);
+        return findCeil(prefix, rand, 0, n - 1) + 1;
+    }
 
-        return aGaussian;
+    private int findCeil(double arr[], double r, int l, int h) {
+        int mid;
+        while (l < h) {
+            mid = l + ((h - l) >> 1); // Same as mid = (l+h)/2
+            if(r > arr[mid])
+                l = mid + 1;
+            else
+                h = mid;
+        }
+        return (arr[l] >= r) ? l : -1;
     }
 }

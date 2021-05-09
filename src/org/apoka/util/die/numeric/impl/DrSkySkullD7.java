@@ -10,8 +10,9 @@ public class DrSkySkullD7 extends AbstractDistributedDie {
 
     private static double SD = 1.799642583;
     private static double MEAN = 3.958;
+    private static double[] hotel = {63., 57., 72, 113, 75, 81, 39};
 
     public DrSkySkullD7() {
-        super(7, SD, MEAN);
+        super(hotel);
     }
 }
