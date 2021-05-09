@@ -9,7 +9,7 @@ import java.util.Random;
  * Some games uses a special numbered dice. This can be useful for those cases.
  *
  */
-public abstract class CustomNumberDie implements ThrowableObject<Integer> {
+public abstract class CustomNumberDie extends Die {
     @Override
     public Integer roll() {
         int rnd = new Random().nextInt(getValues().length);
